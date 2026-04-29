@@ -22,15 +22,15 @@
     import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     // ② 【重要】Step 2で取得したあなたの「firebaseConfig」をここに貼り付けます
-    const firebaseConfig = {
-      apiKey: "AIzaSyxxxxxxxxxxxxxxxxxxxxxxx",
-      authDomain: "your-project.firebaseapp.com",
-      projectId: "your-project",
-      storageBucket: "your-project.appspot.com",
-      messagingSenderId: "1234567890",
-      appId: "1:1234567890:web:abcdefg1234567"
-    };
-
+const firebaseConfig = {
+  apiKey: "AIzaSyATdPsa7sSiQryE-vms1ewxKU6lrzTmv28",
+  authDomain: "neverendingdaily-c009f.firebaseapp.com",
+  projectId: "neverendingdaily-c009f",
+  storageBucket: "neverendingdaily-c009f.firebasestorage.app",
+  messagingSenderId: "273280307638",
+  appId: "1:273280307638:web:336f8cea737254568a7117",
+  measurementId: "G-TY6WLRK7JM"
+};
     // ③ Firebaseの準備を開始！
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
