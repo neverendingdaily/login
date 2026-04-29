@@ -5,171 +5,58 @@
   <title>Googleログインテスト</title>
 </head>
 <body>
-
   <h1>ログイン機能のテスト</h1>
-  
+
   <!-- ログイン・ログアウトのボタン -->
   <button id="login-btn">Googleでログイン</button>
   <button id="logout-btn" style="display:none;">ログアウト</button>
-  
+
   <!-- ログインした人の名前を表示する場所 -->
   <div id="user-info"></div>
 
   <!-- ここからJavaScript -->
   <script type="module">
-    // ① Firebaseのシステムをネット上から読み込む
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getAuth, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-    // ② 【重要】Step 2で取得したあなたの「firebaseConfig」をここに貼り付けます
-const firebaseConfig = {
-  apiKey: "AIzaSyATdPsa7sSiQryE-vms1ewxKU6lrzTmv28",
-  authDomain: "neverendingdaily-c009f.firebaseapp.com",
-  projectId: "neverendingdaily-c009f",
-  storageBucket: "neverendingdaily-c009f.firebasestorage.app",
-  messagingSenderId: "273280307638",
-  appId: "1:273280307638:web:336f8cea737254568a7117",
-  measurementId: "G-TY6WLRK7JM"
-};
-    // ③ Firebaseの準備を開始！
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
-
-    // ④ HTMLのボタンや文字を表示する場所を変数に入れる
-    const loginBtn = document.getElementById('login-btn');
-    const logoutBtn = document.getElementById('logout-btn');
-    const userInfo = document.getElementById('user-info');
-
-    // ⑤ 「ログインボタン」が押されたときの命令
-    loginBtn.addEventListener('click', () => {
-      signInWithPopup(auth, provider)
-        .catch((error) => {
-          console.error("ログインエラー:", error);
-          alert("エラーが発生しました");
-        });
-    });
-
-    // ⑥ 「ログアウトボタン」が押されたときの命令
-    logoutBtn.addEventListener('click', () => {
-      signOut(auth);
-    });
-
-    // ⑦ ログイン状態が変わったとき（ログインした時・ログアウトした時）に自動で動く命令
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // ログインしている時：ログアウトボタンを表示し、名前を出す
-        loginBtn.style.display = "none";
-        logoutBtn.style.display = "block";
-        userInfo.innerHTML = `<p>ようこそ検索して出てきたページは**「開発者向けの説明書（ドキュメント）」**の集まりなので、専門用語（iOS向け、Android向け、Node.js向けなど）が混ざっていて、最初はどれを見ればいいか分からなくて当然です！安心してください。
-
-実は、今検索していただいた説明書のページを読むよりも、**「Firebaseコンソール（管理画面）」**という作業部屋に直接アクセスして手を動かした方が、ずっと簡単で早いです。
-
-検索結果のページは一旦閉じていただいて大丈夫です。以下の**4つのステップ**の通りに進めてみてください。
-
----
-
-### Step 1：Firebaseコンソール（作業部屋）でプロジェクトを作る
-まずは、あなたのWebサイト用の「裏側のシステム」を置くための箱（プロジェクト）を作ります。
-
-1. **[Firebaseコンソール（管理画面）](https://console.firebase.google.com/)** にアクセスします（Googleアカウントでログインしてください）。
-2. 画面中央の **「プロジェクトを追加」**（または「プロジェクトを作成」）をクリックします。
-3. **プロジェクト名**を入力します（例：「MyWebsite」「LoginTest」など、何でもOKです）。
-4. 「Google アナリティクス」の設定を聞かれますが、今回はログイン機能を作りたいだけなので **「無効（オフ）」** にして「プロジェクトを作成」をクリックします。
-5. 準備ができると「新しいプロジェクトの準備ができました」と出るので「続行」をクリックします。
-
-### Step 2：あなたのWebサイトを登録する
-「このプロジェクトは、Webサイトで使いますよ」とFirebaseに教えてあげます。
-
-1. プロジェクトのトップ画面に、iOS / Android / `</>`（Web）などの丸いアイコンが並んでいます。
-2. **`</>`（Webアイコン）** をクリックします。
-3. **アプリのニックネーム**に適当な名前（例：「WebSiteApp」）を入れて、「アプリを登録」をクリックします。
-4. すると、**「Firebase SDK の追加」**という画面になり、暗号のような文字が書かれたコード（`const firebaseConfig = { ... };` の部分）が表示されます。
-   ★これが**あなたのサイト専用の鍵（設定情報）**です。この画面を開いたままにするか、コードをどこかにメモしておいてください。（後から「コンソールに進む」を押してしまっても、設定マーク⚙️からいつでも見られます）
-
-### Step 3：Googleログインを「オン」にする
-次に「Googleアカウントでのログインを許可する」というスイッチを入れます。
-
-1. Firebaseコンソールの左側にあるメニューから **「構築」** を開き、**「Authentication（認証）」** をクリックします。
-2. **「始める」** ボタンをクリックします。
-3. 「Sign-in method（ログイン方法）」というタブが開くので、追加できるプロバイダの一覧から **「Google」** をクリックします。
-4. 右上の **「有効にする」** のスイッチをオンにします。
-5. プロジェクトのサポートメール（あなたのGmailアドレスが選べます）を選択して、右下の **「保存」** をクリックします。
-
----
-
-### Step 4：自分のHTMLファイルにコードを書く
-これで裏側の準備は完了です！いよいよHTMLとJavaScriptを書きます。
-
-以下のコードをコピーして、あなたのパソコンの `index.html` などのファイルに貼り付けてみてください。
-（※ `firebaseConfig` の中身だけ、Step 2で取得した**あなたの専用の鍵**に書き換えてくださいね）
-```html
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title>Googleログインテスト</title>
-</head>
-<body>
-
-  <h1>ログイン機能のテスト</h1>
-  
-  <!-- ログイン・ログアウトのボタン -->
-  <button id="login-btn">Googleでログイン</button>
-  <button id="logout-btn" style="display:none;">ログアウト</button>
-  
-  <!-- ログインした人の名前を表示する場所 -->
-  <div id="user-info"></div>
-
-  <!-- ここからJavaScript -->
-  <script type="module">
-    // ① Firebaseのシステムをネット上から読み込む
-    import { initializeApp } from "[https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js](https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js)";
-    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "[https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js](https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js)";
-
-    // ② 【重要】Step 2で取得したあなたの「firebaseConfig」をここに貼り付けます
+    // あなたの本物の鍵
     const firebaseConfig = {
-      apiKey: "AIzaSyxxxxxxxxxxxxxxxxxxxxxxx",
-      authDomain: "your-project.firebaseapp.com",
-      projectId: "your-project",
-      storageBucket: "your-project.appspot.com",
-      messagingSenderId: "1234567890",
-      appId: "1:1234567890:web:abcdefg1234567"
+      apiKey: "AIzaSyATdPsa7sSiQryE-vms1ewxKU6lrzTmv28",
+      authDomain: "neverendingdaily-c009f.firebaseapp.com",
+      projectId: "neverendingdaily-c009f",
+      storageBucket: "neverendingdaily-c009f.firebasestorage.app",
+      messagingSenderId: "273280307638",
+      appId: "1:273280307638:web:336f8cea737254568a7117",
+      measurementId: "G-TY6WLRK7JM"
     };
 
-    // ③ Firebaseの準備を開始！
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    // ④ HTMLのボタンや文字を表示する場所を変数に入れる
     const loginBtn = document.getElementById('login-btn');
     const logoutBtn = document.getElementById('logout-btn');
     const userInfo = document.getElementById('user-info');
 
-    // ⑤ 「ログインボタン」が押されたときの命令
+    // ログインボタンが押されたときの命令（リダイレクト方式）
     loginBtn.addEventListener('click', () => {
-      signInWithPopup(auth, provider)
-        .catch((error) => {
-          console.error("ログインエラー:", error);
-          alert("エラーが発生しました");
-        });
+      signInWithRedirect(auth, provider);
     });
 
-    // ⑥ 「ログアウトボタン」が押されたときの命令
+    // ログアウトボタンが押されたときの命令
     logoutBtn.addEventListener('click', () => {
       signOut(auth);
     });
 
-    // ⑦ ログイン状態が変わったとき（ログインした時・ログアウトした時）に自動で動く命令
+    // ログイン状態が変わったときに自動で動く命令
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // ログインしている時：ログアウトボタンを表示し、名前を出す
+        // ログインしている時
         loginBtn.style.display = "none";
         logoutBtn.style.display = "block";
         userInfo.innerHTML = `<p>ようこそ、<b>${user.displayName}</b>さん！</p>`;
       } else {
-        // ログアウトしている時：ログインボタンを表示し、メッセージを消す
+        // ログアウトしている時
         loginBtn.style.display = "block";
         logoutBtn.style.display = "none";
         userInfo.innerHTML = "<p>ログインしていません。</p>";
