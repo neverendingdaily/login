@@ -8,107 +8,250 @@
     <style>
         :root{--bg-color:#fcfaf2;--card-bg:#fff;--card-hover:#fdfdf8;--text-main:#2c2925;--text-sub:#787168;--border-color:#ede8d9;--primary:#0369a1}
         body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg-color);color:var(--text-main);margin:0;padding:2rem;display:flex;justify-content:center}
-        
-        /* コンテナの最大幅を広げ、PCで多列表示（最大6列程度）を可能にする */
         .container{max-width:1400px;width:100%}
-        
-        .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem; flex-wrap:wrap; gap:1rem;}
+        .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
         h1{font-size:1.8rem;margin:0;letter-spacing:.05em}
-        
-        /* コントロールパネルのスタイル */
         .controls-top{display:flex;gap:0.5rem;}
         button{cursor:pointer;padding:0.5rem 1rem;border:none;border-radius:6px;font-weight:bold;font-size:0.9rem;transition:all 0.2s;}
         .btn-edit{background:#e2e8f0;color:#334155;}
         .btn-edit.active{background:#ef4444;color:white;}
         .btn-export{background:var(--primary);color:white;}
-        
-        /* フォームのスタイル */
         .add-form{background:#fff;padding:1.5rem;border-radius:12px;border:1px solid var(--border-color);margin-bottom:2rem;display:none;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:1rem;}
         .add-form.active{display:grid;}
         .form-group{display:flex;flex-direction:column;gap:0.3rem;}
         .form-group input, .form-group select{padding:0.5rem;border:1px solid #cbd5e1;border-radius:4px;font-size:0.9rem;}
         .form-full{grid-column:1 / -1;}
         .btn-add{background:#10b981;color:white;padding:0.8rem;grid-column:1 / -1;}
-
-        /* 可変グリッド: ブラウザ幅に合わせて自動で列数が変わる */
         .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem}
-        
         .card{background:var(--card-bg);border-radius:12px;padding:1.5rem;text-decoration:none;color:var(--text-main);transition:all .2s ease;border:1px solid var(--border-color);display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,.02);position:relative;}
         .card:hover{transform:translateY(-3px);border-color:#cbd5e1;box-shadow:0 10px 20px rgba(0,0,0,.06)}
-        
         .icon-wrap{font-size:2rem;margin-bottom:1rem;line-height:1}
         .favicon-img{width:40px;height:40px;object-fit:contain;border-radius:6px}
         .title{font-size:1.1rem;font-weight:bold;margin-bottom:.5rem}
         .desc{font-size:.85rem;color:var(--text-sub);line-height:1.4;flex-grow:1;}
         .badge{display:inline-block;padding:.2rem .5rem;border-radius:4px;font-size:.7rem;font-weight:bold;margin-bottom:1rem;width:fit-content}
-        
-        /* 編集モード時のカードのオーバーレイとボタン */
         .card-edit-overlay{display:none;position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,0.9);border-radius:12px;flex-direction:column;justify-content:center;align-items:center;gap:0.5rem;z-index:10;}
         .edit-mode .card-edit-overlay{display:flex;}
         .edit-mode.card:hover{transform:none;}
         .action-btn{padding:0.4rem 1rem;font-size:1.2rem;background:#f1f5f9;border:1px solid #cbd5e1;}
         .action-btn:hover{background:#e2e8f0;}
         .delete-btn{background:#fee2e2;color:#ef4444;border-color:#fca5a5;}
-        
         .bg-blue{background:#e0f2fe;color:#0369a1}.bg-green{background:#dcfce7;color:#15803d}.bg-purple{background:#f3e8ff;color:#7e22ce}.bg-orange{background:#ffedd5;color:#c2410c}.bg-gray{background:#f3f4f6;color:#4b5563}.bg-red{background:#fee2e2;color:#b91c1c}.bg-yellow{background:#fef9c3;color:#854d0e}.bg-teal{background:#ccfbf1;color:#0f766e}
-        
-        /* ▼▼▼ プレミアムログイン画面用CSS ▼▼▼ */
+
+        /* ============================================
+           ログイン画面 — オーロラ背景バージョン
+           ============================================ */
         .hidden { display: none !important; }
-        
+
         #login-section {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
-            display: flex; justify-content: center; align-items: center; z-index: 9999;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #060b18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            overflow: hidden;
         }
 
+        /* オーロラ用のカラーブロブ */
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.55;
+            pointer-events: none;
+        }
+        .blob-1 {
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, #3b4fd8 0%, transparent 70%);
+            top: -15%; left: -10%;
+            animation: drift-1 18s ease-in-out infinite alternate;
+        }
+        .blob-2 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+            bottom: -10%; right: -5%;
+            animation: drift-2 22s ease-in-out infinite alternate;
+        }
+        .blob-3 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, #0e9f8e 0%, transparent 70%);
+            top: 30%; right: 20%;
+            animation: drift-3 16s ease-in-out infinite alternate;
+        }
+        .blob-4 {
+            width: 350px; height: 350px;
+            background: radial-gradient(circle, #be185d 0%, transparent 70%);
+            bottom: 20%; left: 15%;
+            animation: drift-4 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes drift-1 {
+            0%   { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(80px, 60px) scale(1.15); }
+        }
+        @keyframes drift-2 {
+            0%   { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-70px, -50px) scale(1.1); }
+        }
+        @keyframes drift-3 {
+            0%   { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-60px, 80px) scale(0.9); }
+        }
+        @keyframes drift-4 {
+            0%   { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, -60px) scale(1.2); }
+        }
+
+        /* 星のような微細パーティクル（CSS only） */
+        .stars {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 25% 55%, rgba(255,255,255,0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 40% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 60% 80%, rgba(255,255,255,0.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 75% 35%, rgba(255,255,255,0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 85% 65%, rgba(255,255,255,0.6) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 15% 75%, rgba(255,255,255,0.3) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 50% 45%, rgba(255,255,255,0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 90% 15%, rgba(255,255,255,0.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 35% 90%, rgba(255,255,255,0.4) 0%, transparent 100%);
+            animation: twinkle 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0%   { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* ログインカード */
         .login-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             padding: 3.5rem 3rem;
-            border-radius: 24px;
+            border-radius: 28px;
             text-align: center;
             max-width: 420px;
             width: 90%;
-            border: 1px solid rgba(255,255,255,0.8);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.05) inset,
+                0 32px 64px -12px rgba(0,0,0,0.6);
+            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0%   { opacity: 0; transform: translateY(24px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .login-logo {
-            font-size: 3.5rem; margin-bottom: 1rem; line-height: 1;
-            animation: float 3s ease-in-out infinite;
+            font-size: 3.5rem;
+            margin-bottom: 1.2rem;
+            line-height: 1;
+            display: block;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(99,102,241,0.6));
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50%       { transform: translateY(-12px) rotate(3deg); }
         }
 
-        .login-card h2 { margin: 0 0 0.5rem 0; color: #1e293b; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.025em; }
-        .login-desc { color: #64748b; font-size: 0.95rem; margin-bottom: 2.5rem; line-height: 1.6; }
+        .login-card h2 {
+            margin: 0 0 0.6rem 0;
+            color: #ffffff;
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            text-shadow: 0 2px 20px rgba(99,102,241,0.4);
+        }
 
+        /* タイトルにグラデーションテキスト */
+        .login-card h2 span {
+            background: linear-gradient(135deg, #a5b4fc 0%, #67e8f9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .login-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.92rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        /* Googleログインボタン */
         .btn-login-modern {
-            background: #ffffff; color: #334155; border: 1px solid #e2e8f0;
-            padding: 14px 24px; font-size: 1.05rem; font-weight: 600; border-radius: 12px; width: 100%;
-            display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer;
+            background: rgba(255,255,255,0.92);
+            color: #1e293b;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 14px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
         }
 
+        /* シマーアニメーション */
+        .btn-login-modern::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: none;
+        }
+        .btn-login-modern:hover::after {
+            left: 150%;
+            transition: left 0.6s ease;
+        }
         .btn-login-modern:hover {
-            background: #f8fafc; border-color: #cbd5e1; transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .btn-login-modern:active {
+            transform: translateY(0) scale(0.98);
         }
 
-        .btn-login-modern:active { transform: translateY(0); }
-        .google-icon { width: 24px; height: 24px; }
-        .login-footer { margin-top: 2rem; font-size: 0.8rem; color: #94a3b8; }
+        .google-icon { width: 22px; height: 22px; flex-shrink: 0; }
 
+        /* 信頼バッジ */
+        .login-trust {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 1.8rem;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.35);
+        }
+        .trust-dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* ポータル側のユーザー情報 */
         .user-info { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: bold; }
         .btn-logout { background: #f1f5f9; color: #334155; padding: 5px 10px; font-size: 0.8rem; border:none; border-radius:6px; cursor:pointer;}
         .btn-logout:hover { background: #e2e8f0; }
@@ -117,23 +260,37 @@
 
         @media (max-width: 600px) {
             .header { flex-direction: column; text-align: center; }
+            .login-card { padding: 2.5rem 1.8rem; }
         }
     </style>
 </head>
 <body>
 
 <div id="login-section">
+    <div class="stars"></div>
+    <div class="aurora-blob blob-1"></div>
+    <div class="aurora-blob blob-2"></div>
+    <div class="aurora-blob blob-3"></div>
+    <div class="aurora-blob blob-4"></div>
+
     <div class="login-card">
-        <div class="login-logo">🚀</div>
-        <h2>SNS Marketing Portal</h2>
-        <p class="login-desc">統合マーケティングシステムへようこそ。<br>続行するにはログインしてください。</p>
+        <span class="login-logo">🚀</span>
+        <h2><span>SNS Marketing</span> Portal</h2>
+        <p class="login-desc">
+            あなたの発信戦略を、<br>ひとつの画面から。
+        </p>
         <button id="login-btn" class="btn-login-modern">
             <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="google-icon">
             Google アカウントでログイン
         </button>
-        <p class="login-footer">※許可されたクリエイターのみアクセス可能です</p>
+        <div class="login-trust">
+            <span>🔒 安全なGoogle認証</span>
+            <div class="trust-dot"></div>
+            <span>招待制クリエイター専用</span>
+        </div>
     </div>
 </div>
+
 <div class="container hidden" id="main-content">
     <div class="header">
         <h1>🚀 Marketing System Portal</h1>
@@ -185,35 +342,36 @@
     </div>
 
     <div class="grid" id="g">
-        <div class="loading-text">データを読み込んでいます...</div>
+        <div class="loading-text">クラウドからデータを読み込んでいます...</div>
     </div>
 </div>
+
 <script id="site-data" type="application/json">
 [
-  { "title": "Gem Hub", "url": "https://neverendingdaily.github.io/portal/home/", "icon": "💎", "badgeText": "Core AI", "badgeClass": "bg-purple", "desc": "180のAIエージェント・SOP群。全ての作業の司令塔。" },
-  { "title": "Gem Hub コンシェルジュ", "url": "https://neverendingdaily.github.io/portal/aiconcierge/", "desc": "達成したい目的を入力すると、最適な使用順序とワークフローをAIが提案します。", "icon": "💁", "badgeClass": "bg-purple", "badgeText": "Assistant" },
-  { "title": "X高度な検索アプリ", "url": "https://neverendingdaily.github.io/portal/x/", "icon": "🔍", "badgeText": "Research", "badgeClass": "bg-blue", "desc": "X Advanced Search" },
-  { "title": "Search Hub", "url": "https://neverendingdaily.github.io/portal/searchhub/", "desc": "Google/X/Bluesky/Reddit横断のリサーチツール。", "icon": "🔍", "badgeClass": "bg-gray", "badgeText": "Research" },
-  { "title": "Trend Seed Finder", "url": "https://neverendingdaily.github.io/portal/trend-seed-finder/", "desc": "最新トレンドの種を発見し、バズるコンテンツの切り口を見つけるツール。", "icon": "📈", "badgeClass": "bg-gray", "badgeText": "Research" },
-  { "title": "Persona Analyzer", "url": "https://neverendingdaily.github.io/portal/persona-analyzer/", "desc": "ターゲット層のペルソナを深掘りし、解像度を極限まで上げる分析ツール。", "icon": "🕵️", "badgeClass": "bg-red", "badgeText": "Analysis" },
-  { "title": "トンマナ深層アナリスト", "url": "https://neverendingdaily.github.io/portal/tonmana-tool/", "desc": "文章のトーン＆マナーを分析し、ブランドに合った声質を解析します。", "icon": "⚖️", "badgeClass": "bg-red", "badgeText": "Analysis" },
-  { "title": "総合アナライザー", "url": "https://neverendingdaily.github.io/portal/analyze/", "desc": "コンテンツやテキストデータの多角的な分析・スコアリングツール。", "icon": "📊", "badgeClass": "bg-red", "badgeText": "Analysis" },
-  { "title": "ことだね（Kotodane）", "url": "https://neverendingdaily.github.io/portal/kotodane/", "desc": "思考の種やキーワードから、連想的にコンテンツアイデアを生成・拡張。", "icon": "🌱", "badgeClass": "bg-yellow", "badgeText": "Ideation" },
-  { "title": "Gem Hub アイデア錬成", "url": "https://neverendingdaily.github.io/portal/aiconcierge-idea/", "desc": "キーワードからGem Hubの機能を想定したワークフロー案を一気に30個リストアップ。", "icon": "💡", "badgeClass": "bg-yellow", "badgeText": "Ideation" },
-  { "title": "SNS 看板プランナー", "url": "https://neverendingdaily.github.io/portal/sns-profile-planner/", "desc": "全媒体のプロフィール・固定ポスト・導線の一括設計。", "icon": "📢", "badgeClass": "bg-blue", "badgeText": "Setup" },
-  { "title": "SNS Content Studio", "url": "https://neverendingdaily.github.io/portal/sns-content-studio/", "desc": "【統合版】SNS投稿の全体計画、カレンダー管理、コンテンツ制作を一元管理。", "icon": "📅", "badgeClass": "bg-green", "badgeText": "Planning" },
-  { "title": "X Schedule Generator", "url": "https://neverendingdaily.github.io/portal/x-schedule-generator/", "desc": "X（旧Twitter）のアルゴリズムに最適化された投稿スケジュールを自動生成。", "icon": "🐦", "badgeClass": "bg-green", "badgeText": "Planning" },
-  { "title": "Strategic Content Generator", "url": "https://neverendingdaily.github.io/portal/strategic-content-generator/", "desc": "戦略的意図に基づいた高品質なコンテンツ構成と原稿を自動生成。", "icon": "🎯", "badgeClass": "bg-orange", "badgeText": "Creative" },
-  { "title": "Product Review Creator", "url": "https://neverendingdaily.github.io/portal/product-review-creation/", "desc": "ユーザー心理に刺さる自然な商品レビュー・口コミ風コンテンツを生成。", "icon": "⭐", "badgeClass": "bg-orange", "badgeText": "Creative" },
-  { "title": "ペルソナ憑依スタジオ", "url": "https://neverendingdaily.github.io/portal/persona-possession-studio/", "desc": "クリエイターの思考・口調・哲学を完全憑依させた高度なゴーストライティングツール。", "icon": "🍻", "badgeClass": "bg-blue", "badgeText": "Studio" },
-  { "title": "メディア憑依スタジオ", "url": "https://neverendingdaily.github.io/portal/media-possession-studio/", "desc": "10軸トンマナ分析 × 完全憑依生成。メディアの「声」を完璧に再現。", "icon": "🎭", "badgeClass": "bg-blue", "badgeText": "Studio" },
-  { "title": "Canva SNS Auto-Chef", "url": "https://neverendingdaily.github.io/portal/canva/", "desc": "画像・動画構成とSOP・プロンプトをGeminiで全自動生成。", "icon": "🧑‍🍳", "badgeClass": "bg-orange", "badgeText": "Creative" },
-  { "title": "Filmora AI Workflow", "url": "https://neverendingdaily.github.io/portal/fimora-ai-workflow-studio/", "desc": "アイデア → 台本 → プロンプト → SOP を一気通貫生成。", "icon": "🎬", "badgeClass": "bg-orange", "badgeText": "Creative" },
-  { "title": "LP Wireframe Generator", "url": "https://neverendingdaily.github.io/portal/lp-wireframe-generater/", "desc": "コンバージョン率を最大化するランディングページのワイヤーフレームを自動設計。", "icon": "📐", "badgeClass": "bg-teal", "badgeText": "Design" },
-  { "title": "PostMesh Planner", "url": "https://neverendingdaily.github.io/portal/postmesh-planner/", "desc": "予約ツールへのデータストックと流し込み成形。", "icon": "⚙️", "badgeClass": "bg-blue", "badgeText": "Automation" },
-  { "title": "Data Merger", "url": "https://neverendingdaily.github.io/portal/merger/", "desc": "複数のテキストデータやプロンプト結果を整理・統合・結合するユーティリティ。", "icon": "🔗", "badgeClass": "bg-blue", "badgeText": "Tool" },
-  { "title": "OCRテキスト抽出", "url": "https://neverendingdaily.github.io/portal/ocr-tool/", "desc": "画像やPDFから文字情報を素早くテキストデータとして抽出します。", "icon": "📄", "badgeClass": "bg-blue", "badgeText": "Tool" },
-  { "title": "dマガジン 直リンクポータル", "url": "https://neverendingdaily.github.io/portal/dmagazine/", "desc": "dマガジンの各種ページへ直接アクセスできるポータルサイトです。", "icon": "📚", "badgeClass": "bg-gray", "badgeText": "Portal" }
+  {"title":"Gem Hub","url":"https://neverendingdaily.github.io/portal/home/","icon":"💎","badgeText":"Core AI","badgeClass":"bg-purple","desc":"   180のAIエージェント・SOP群。全ての作業の司令塔。"},
+  {"title":"Gem Hub コンシェルジュ","url":"https://neverendingdaily.github.io/portal/aiconcierge/","desc":"達成したい目的を入力すると、最適な使用順序とワークフローをAIが提案します。","icon":"💁","badgeClass":"bg-purple","badgeText":"Assistant"},
+  {"title":"X高度な検索アプリ","url":"https://neverendingdaily.github.io/portal/x/","icon":"🔍","badgeText":"Research","badgeClass":"bg-blue","desc":"X Advanced Search"},
+  {"title":"Search Hub","url":"https://neverendingdaily.github.io/portal/searchhub/","desc":"Google/X/Bluesky/Reddit横断のリサーチツール。","icon":"🔍","badgeClass":"bg-gray","badgeText":"Research"},
+  {"title":"Trend Seed Finder","url":"https://neverendingdaily.github.io/portal/trend-seed-finder/","desc":"最新トレンドの種を発見し、バズるコンテンツの切り口を見つけるツール。","icon":"📈","badgeClass":"bg-gray","badgeText":"Research"},
+  {"title":"Persona Analyzer","url":"https://neverendingdaily.github.io/portal/persona-analyzer/","desc":"ターゲット層のペルソナを深掘りし、解像度を極限まで上げる分析ツール。","icon":"🕵️","badgeClass":"bg-red","badgeText":"Analysis"},
+  {"title":"トンマナ深層アナリスト","url":"https://neverendingdaily.github.io/portal/tonmana-tool/","desc":"文章のトーン＆マナーを分析し、ブランドに合った声質を解析します。","icon":"⚖️","badgeClass":"bg-red","badgeText":"Analysis"},
+  {"title":"総合アナライザー","url":"https://neverendingdaily.github.io/portal/analyze/","desc":"コンテンツやテキストデータの多角的な分析・スコアリングツール。","icon":"📊","badgeClass":"bg-red","badgeText":"Analysis"},
+  {"title":"ことだね（Kotodane）","url":"https://neverendingdaily.github.io/portal/kotodane/","desc":"思考の種やキーワードから、連想的にコンテンツアイデアを生成・拡張。","icon":"🌱","badgeClass":"bg-yellow","badgeText":"Ideation"},
+  {"title":"Gem Hub アイデア錬成","url":"https://neverendingdaily.github.io/portal/aiconcierge-idea/","desc":"キーワードからGem Hubの機能を想定したワークフロー案を一気に30個リストアップ。","icon":"💡","badgeClass":"bg-yellow","badgeText":"Ideation"},
+  {"title":"SNS 看板プランナー","url":"https://neverendingdaily.github.io/portal/sns-profile-planner/","desc":"全媒体のプロフィール・固定ポスト・導線の一括設計。","icon":"📢","badgeClass":"bg-blue","badgeText":"Setup"},
+  {"title":"SNS Content Studio","url":"https://neverendingdaily.github.io/portal/sns-content-studio/","desc":"【統合版】SNS投稿の全体計画、カレンダー管理、コンテンツ制作を一元管理。","icon":"📅","badgeClass":"bg-green","badgeText":"Planning"},
+  {"title":"X Schedule Generator","url":"https://neverendingdaily.github.io/portal/x-schedule-generator/","desc":"X（旧Twitter）のアルゴリズムに最適化された投稿スケジュールを自動生成。","icon":"🐦","badgeClass":"bg-green","badgeText":"Planning"},
+  {"title":"Strategic Content Generator","url":"https://neverendingdaily.github.io/portal/strategic-content-generator/","desc":"戦略的意図に基づいた高品質なコンテンツ構成と原稿を自動生成。","icon":"🎯","badgeClass":"bg-orange","badgeText":"Creative"},
+  {"title":"Product Review Creator","url":"https://neverendingdaily.github.io/portal/product-review-creation/","desc":"ユーザー心理に刺さる自然な商品レビュー・口コミ風コンテンツを生成。","icon":"⭐","badgeClass":"bg-orange","badgeText":"Creative"},
+  {"title":"ペルソナ憑依スタジオ","url":"https://neverendingdaily.github.io/portal/persona-possession-studio/","desc":"クリエイターの思考・口調・哲学を完全憑依させた高度なゴーストライティングツール。","icon":"🍻","badgeClass":"bg-blue","badgeText":"Studio"},
+  {"title":"メディア憑依スタジオ","url":"https://neverendingdaily.github.io/portal/media-possession-studio/","desc":"10軸トンマナ分析 × 完全憑依生成。メディアの「声」を完璧に再現。","icon":"🎭","badgeClass":"bg-blue","badgeText":"Studio"},
+  {"title":"Canva SNS Auto-Chef","url":"https://neverendingdaily.github.io/portal/canva/","desc":"画像・動画構成とSOP・プロンプトをGeminiで全自動生成。","icon":"🧑‍🍳","badgeClass":"bg-orange","badgeText":"Creative"},
+  {"title":"Filmora AI Workflow","url":"https://neverendingdaily.github.io/portal/fimora-ai-workflow-studio/","desc":"アイデア → 台本 → プロンプト → SOP を一気通貫生成。","icon":"🎬","badgeClass":"bg-orange","badgeText":"Creative"},
+  {"title":"LP Wireframe Generator","url":"https://neverendingdaily.github.io/portal/lp-wireframe-generater/","desc":"コンバージョン率を最大化するランディングページのワイヤーフレームを自動設計。","icon":"📐","badgeClass":"bg-teal","badgeText":"Design"},
+  {"title":"PostMesh Planner","url":"https://neverendingdaily.github.io/portal/postmesh-planner/","desc":"予約ツールへのデータストックと流し込み成形。","icon":"⚙️","badgeClass":"bg-blue","badgeText":"Automation"},
+  {"title":"Data Merger","url":"https://neverendingdaily.github.io/portal/merger/","desc":"複数のテキストデータやプロンプト結果を整理・統合・結合するユーティリティ。","icon":"🔗","badgeClass":"bg-blue","badgeText":"Tool"},
+  {"title":"OCRテキスト抽出","url":"https://neverendingdaily.github.io/portal/ocr-tool/","desc":"画像やPDFから文字情報を素早くテキストデータとして抽出します。","icon":"📄","badgeClass":"bg-blue","badgeText":"Tool"},
+  {"title":"dマガジン 直リンクポータル","url":"https://neverendingdaily.github.io/portal/dmagazine/","desc":"dマガジンの各種ページへ直接アクセスできるポータルサイトです。","icon":"📚","badgeClass":"bg-gray","badgeText":"Portal"}
 ]
 </script>
 
@@ -221,7 +379,7 @@
     // ① Firebaseのシステムを読み込む
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
-    // 🌟 今回追加：Firestore（クラウドデータベース）の機能を読み込む
+    // 🌟 Firestore（クラウドデータベース）の機能を読み込む
     import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
     // ② あなたの鍵
@@ -248,20 +406,19 @@
     const dataScript = document.getElementById('site-data');
     const originalData = JSON.parse(dataScript.textContent);
     
-    let L = []; // ツールのリスト（後でクラウドから読み込みます）
+    let L = []; // ツールのリスト
     let isEditMode = false;
-    let currentUser = null; // ログインしているユーザーの情報を保存
+    let currentUser = null; 
 
     // ④ ログイン状態の監視とクラウドデータの取得
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // ログイン成功！
         currentUser = user;
         loginSection.classList.add('hidden');
         mainContent.classList.remove('hidden');
         userNameSpan.textContent = user.displayName + " さん";
 
-        // 🌟 クラウドから「あなた専用のツール一覧」を取得する処理
+        // 🌟 クラウドから「あなた専用のツール一覧」を取得
         try {
             const userDoc = await getDoc(doc(db, "users", user.uid));
             if (userDoc.exists()) {
@@ -272,10 +429,9 @@
                 L = JSON.parse(localStorage.getItem('my_portal_data')) || originalData;
                 await setDoc(doc(db, "users", user.uid), { tools: L });
             }
-            renderCards(); // データを取得してから画面にカードを描画
+            renderCards(); 
         } catch (error) {
             console.error("クラウドからのデータ取得に失敗しました:", error);
-            // 失敗時はローカルデータで代用
             L = JSON.parse(localStorage.getItem('my_portal_data')) || originalData;
             renderCards();
         }
@@ -299,7 +455,6 @@
     document.getElementById('logout-btn').addEventListener('click', () => {
       signOut(auth).catch((error) => console.error("ログアウトエラー:", error));
     });
-
 
     // ==========================================
     // 以降はポータルサイトの便利機能（描画、編集、並び替え）
@@ -344,11 +499,9 @@
 
     // 🌟 変更や追加があったときに、クラウドに同期する関数
     async function saveData() {
-        // オフラインの時のためにローカルにも一応保存
         localStorage.setItem('my_portal_data', JSON.stringify(L));
         renderCards();
 
-        // ログイン中なら、変更をクラウド（Firestore）に送信！
         if (currentUser) {
             try {
                 await setDoc(doc(db, "users", currentUser.uid), { tools: L });
@@ -380,7 +533,7 @@
         event.stopPropagation();
         if(index > 0) {
             [L[index - 1], L[index]] = [L[index], L[index - 1]];
-            saveData(); // ここでクラウドへ同期！
+            saveData(); 
         }
     }
 
@@ -388,7 +541,7 @@
         event.stopPropagation();
         if(index < L.length - 1) {
             [L[index + 1], L[index]] = [L[index], L[index + 1]];
-            saveData(); // ここでクラウドへ同期！
+            saveData(); 
         }
     }
 
@@ -396,7 +549,7 @@
         event.stopPropagation();
         if(confirm("このサイトをリストから削除しますか？")) {
             L.splice(index, 1);
-            saveData(); // ここでクラウドへ同期！
+            saveData(); 
         }
     }
 
@@ -415,7 +568,7 @@
         };
         
         L.push(newSite);
-        saveData(); // ここでクラウドへ同期！
+        saveData(); 
         
         document.getElementById('f-title').value = '';
         document.getElementById('f-url').value = '';
@@ -443,7 +596,7 @@
         alert("バックアップ用HTMLをダウンロードしました。");
     }
 
-    // ★ HTMLのボタンから呼び出せるように、関数を全体(window)に登録
+    // ★ HTMLのボタン（onclick="〇〇"）から呼び出せるように登録
     window.toggleEditMode = toggleEditMode;
     window.moveUp = moveUp;
     window.moveDown = moveDown;
