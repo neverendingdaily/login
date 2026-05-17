@@ -30,7 +30,7 @@
         .form-full{grid-column:1 / -1;}
         .btn-add{background:#10b981;color:white;padding:0.8rem;grid-column:1 / -1;}
 
-        /* 可変グリッド: ブラウザ幅に合わせて自動で列数が変わる（minmaxで最小幅を200pxに設定） */
+        /* 可変グリッド: ブラウザ幅に合わせて自動で列数が変わる */
         .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem}
         
         .card{background:var(--card-bg);border-radius:12px;padding:1.5rem;text-decoration:none;color:var(--text-main);transition:all .2s ease;border:1px solid var(--border-color);display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,.02);position:relative;}
@@ -56,19 +56,13 @@
         .hidden { display: none !important; }
         
         #login-section {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            /* 高級感のある背景グラデーション */
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
+            display: flex; justify-content: center; align-items: center; z-index: 9999;
         }
 
         .login-card {
             background: rgba(255, 255, 255, 0.95);
-            /* すりガラス風のエフェクト */
             backdrop-filter: blur(10px);
             padding: 3.5rem 3rem;
             border-radius: 24px;
@@ -77,7 +71,6 @@
             width: 90%;
             border: 1px solid rgba(255,255,255,0.8);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-            /* ふんわり現れるアニメーション */
             animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
@@ -87,10 +80,7 @@
         }
 
         .login-logo {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            line-height: 1;
-            /* ロケットがフワフワ浮くアニメーション */
+            font-size: 3.5rem; margin-bottom: 1rem; line-height: 1;
             animation: float 3s ease-in-out infinite;
         }
 
@@ -99,63 +89,31 @@
             50% { transform: translateY(-10px); }
         }
 
-        .login-card h2 {
-            margin: 0 0 0.5rem 0;
-            color: #1e293b;
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: -0.025em;
-        }
-
-        .login-desc {
-            color: #64748b;
-            font-size: 0.95rem;
-            margin-bottom: 2.5rem;
-            line-height: 1.6;
-        }
+        .login-card h2 { margin: 0 0 0.5rem 0; color: #1e293b; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.025em; }
+        .login-desc { color: #64748b; font-size: 0.95rem; margin-bottom: 2.5rem; line-height: 1.6; }
 
         .btn-login-modern {
-            background: #ffffff;
-            color: #334155;
-            border: 1px solid #e2e8f0;
-            padding: 14px 24px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            border-radius: 12px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            cursor: pointer;
+            background: #ffffff; color: #334155; border: 1px solid #e2e8f0;
+            padding: 14px 24px; font-size: 1.05rem; font-weight: 600; border-radius: 12px; width: 100%;
+            display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
         }
 
         .btn-login-modern:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
-            transform: translateY(-2px);
+            background: #f8fafc; border-color: #cbd5e1; transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
-        .btn-login-modern:active {
-            transform: translateY(0);
-        }
-
+        .btn-login-modern:active { transform: translateY(0); }
         .google-icon { width: 24px; height: 24px; }
+        .login-footer { margin-top: 2rem; font-size: 0.8rem; color: #94a3b8; }
 
-        .login-footer {
-            margin-top: 2rem;
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
-
-        /* 既存のユーザー情報表示エリア用 */
         .user-info { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: bold; }
-        .btn-logout { background: #f1f5f9; color: #334155; padding: 5px 10px; font-size: 0.8rem; }
+        .btn-logout { background: #f1f5f9; color: #334155; padding: 5px 10px; font-size: 0.8rem; border:none; border-radius:6px; cursor:pointer;}
         .btn-logout:hover { background: #e2e8f0; }
-        /* ▲▲▲ プレミアムログイン画面用CSS ▲▲▲ */
+        
+        .loading-text { text-align: center; color: #0369a1; font-weight: bold; padding: 2rem; grid-column: 1 / -1; }
 
         @media (max-width: 600px) {
             .header { flex-direction: column; text-align: center; }
@@ -179,15 +137,13 @@
 <div class="container hidden" id="main-content">
     <div class="header">
         <h1>🚀 Marketing System Portal</h1>
-        
         <div class="user-info">
             <span id="user-name"></span>
             <button id="logout-btn" class="btn-logout">ログアウト</button>
         </div>
-
         <div class="controls-top">
             <button class="btn-edit" id="toggle-edit" onclick="toggleEditMode()">編集モード ON</button>
-            <button class="btn-export" onclick="exportHTML()">💾 HTMLエクスポート</button>
+            <button class="btn-export" onclick="exportHTML()">💾 HTMLバックアップ</button>
         </div>
     </div>
 
@@ -225,367 +181,50 @@
             <label>説明文</label>
             <input type="text" id="f-desc" placeholder="ツールの概要や用途を入力">
         </div>
-        <button class="btn-add" onclick="addSite()">+ リストに追加</button>
+        <button class="btn-add" onclick="addSite()">+ クラウドに追加</button>
     </div>
 
-    <div class="grid" id="g"></div>
+    <div class="grid" id="g">
+        <div class="loading-text">データを読み込んでいます...</div>
+    </div>
 </div>
 <script id="site-data" type="application/json">
 [
-  {
-    "title": "Gem Hub",
-    "url": "https://neverendingdaily.github.io/portal/home/",
-    "icon": "💎",
-    "badgeText": "Core AI",
-    "badgeClass": "bg-purple",
-    "desc": "   180のAIエージェント・SOP群。全ての作業の司令塔。"
-  },
-  {
-    "title": "Gem Hub コンシェルジュ",
-    "url": "https://neverendingdaily.github.io/portal/aiconcierge/",
-    "desc": "達成したい目的を入力すると、最適な使用順序とワークフローをAIが提案します。",
-    "icon": "💁",
-    "badgeClass": "bg-purple",
-    "badgeText": "Assistant"
-  },
-  {
-    "title": "X高度な検索アプリ",
-    "url": "https://neverendingdaily.github.io/portal/x/",
-    "icon": "🔍",
-    "badgeText": "Research",
-    "badgeClass": "bg-blue",
-    "desc": "X Advanced Search"
-  },
-  {
-    "title": "Search Hub",
-    "url": "https://neverendingdaily.github.io/portal/searchhub/",
-    "desc": "Google/X/Bluesky/Reddit横断のリサーチツール。",
-    "icon": "🔍",
-    "badgeClass": "bg-gray",
-    "badgeText": "Research"
-  },
-  {
-    "title": "Trend Seed Finder",
-    "url": "https://neverendingdaily.github.io/portal/trend-seed-finder/",
-    "desc": "最新トレンドの種を発見し、バズるコンテンツの切り口を見つけるツール。",
-    "icon": "📈",
-    "badgeClass": "bg-gray",
-    "badgeText": "Research"
-  },
-  {
-    "title": "Persona Analyzer",
-    "url": "https://neverendingdaily.github.io/portal/persona-analyzer/",
-    "desc": "ターゲット層のペルソナを深掘りし、解像度を極限まで上げる分析ツール。",
-    "icon": "🕵️",
-    "badgeClass": "bg-red",
-    "badgeText": "Analysis"
-  },
-  {
-    "title": "トンマナ深層アナリスト",
-    "url": "https://neverendingdaily.github.io/portal/tonmana-tool/",
-    "desc": "文章のトーン＆マナーを分析し、ブランドに合った声質を解析します。",
-    "icon": "⚖️",
-    "badgeClass": "bg-red",
-    "badgeText": "Analysis"
-  },
-  {
-    "title": "総合アナライザー",
-    "url": "https://neverendingdaily.github.io/portal/analyze/",
-    "desc": "コンテンツやテキストデータの多角的な分析・スコアリングツール。",
-    "icon": "📊",
-    "badgeClass": "bg-red",
-    "badgeText": "Analysis"
-  },
-  {
-    "title": "ことだね（Kotodane）",
-    "url": "https://neverendingdaily.github.io/portal/kotodane/",
-    "desc": "思考の種やキーワードから、連想的にコンテンツアイデアを生成・拡張。",
-    "icon": "🌱",
-    "badgeClass": "bg-yellow",
-    "badgeText": "Ideation"
-  },
-  {
-    "title": "Gem Hub アイデア錬成",
-    "url": "https://neverendingdaily.github.io/portal/aiconcierge-idea/",
-    "desc": "キーワードからGem Hubの機能を想定したワークフロー案を一気に30個リストアップ。",
-    "icon": "💡",
-    "badgeClass": "bg-yellow",
-    "badgeText": "Ideation"
-  },
-  {
-    "title": "SNS 看板プランナー",
-    "url": "https://neverendingdaily.github.io/portal/sns-profile-planner/",
-    "desc": "全媒体のプロフィール・固定ポスト・導線の一括設計。",
-    "icon": "📢",
-    "badgeClass": "bg-blue",
-    "badgeText": "Setup"
-  },
-  {
-    "title": "SNS Content Studio",
-    "url": "https://neverendingdaily.github.io/portal/sns-content-studio/",
-    "desc": "【統合版】SNS投稿の全体計画、カレンダー管理、コンテンツ制作を一元管理。",
-    "icon": "📅",
-    "badgeClass": "bg-green",
-    "badgeText": "Planning"
-  },
-  {
-    "title": "X Schedule Generator",
-    "url": "https://neverendingdaily.github.io/portal/x-schedule-generator/",
-    "desc": "X（旧Twitter）のアルゴリズムに最適化された投稿スケジュールを自動生成。",
-    "icon": "🐦",
-    "badgeClass": "bg-green",
-    "badgeText": "Planning"
-  },
-  {
-    "title": "Strategic Content Generator",
-    "url": "https://neverendingdaily.github.io/portal/strategic-content-generator/",
-    "desc": "戦略的意図に基づいた高品質なコンテンツ構成と原稿を自動生成。",
-    "icon": "🎯",
-    "badgeClass": "bg-orange",
-    "badgeText": "Creative"
-  },
-  {
-    "title": "Product Review Creator",
-    "url": "https://neverendingdaily.github.io/portal/product-review-creation/",
-    "desc": "ユーザー心理に刺さる自然な商品レビュー・口コミ風コンテンツを生成。",
-    "icon": "⭐",
-    "badgeClass": "bg-orange",
-    "badgeText": "Creative"
-  },
-  {
-    "title": "ペルソナ憑依スタジオ",
-    "url": "https://neverendingdaily.github.io/portal/persona-possession-studio/",
-    "desc": "クリエイターの思考・口調・哲学を完全憑依させた高度なゴーストライティングツール。",
-    "icon": "🍻",
-    "badgeClass": "bg-blue",
-    "badgeText": "Studio"
-  },
-  {
-    "title": "メディア憑依スタジオ",
-    "url": "https://neverendingdaily.github.io/portal/media-possession-studio/",
-    "desc": "10軸トンマナ分析 × 完全憑依生成。メディアの「声」を完璧に再現。",
-    "icon": "🎭",
-    "badgeClass": "bg-blue",
-    "badgeText": "Studio"
-  },
-  {
-    "title": "Canva SNS Auto-Chef",
-    "url": "https://neverendingdaily.github.io/portal/canva/",
-    "desc": "画像・動画構成とSOP・プロンプトをGeminiで全自動生成。",
-    "icon": "🧑‍🍳",
-    "badgeClass": "bg-orange",
-    "badgeText": "Creative"
-  },
-  {
-    "title": "Filmora AI Workflow",
-    "url": "https://neverendingdaily.github.io/portal/fimora-ai-workflow-studio/",
-    "desc": "アイデア → 台本 → プロンプト → SOP を一気通貫生成。",
-    "icon": "🎬",
-    "badgeClass": "bg-orange",
-    "badgeText": "Creative"
-  },
-  {
-    "title": "LP Wireframe Generator",
-    "url": "https://neverendingdaily.github.io/portal/lp-wireframe-generater/",
-    "desc": "コンバージョン率を最大化するランディングページのワイヤーフレームを自動設計。",
-    "icon": "📐",
-    "badgeClass": "bg-teal",
-    "badgeText": "Design"
-  },
-  {
-    "title": "PostMesh Planner",
-    "url": "https://neverendingdaily.github.io/portal/postmesh-planner/",
-    "desc": "予約ツールへのデータストックと流し込み成形。",
-    "icon": "⚙️",
-    "badgeClass": "bg-blue",
-    "badgeText": "Automation"
-  },
-  {
-    "title": "Data Merger",
-    "url": "https://neverendingdaily.github.io/portal/merger/",
-    "desc": "複数のテキストデータやプロンプト結果を整理・統合・結合するユーティリティ。",
-    "icon": "🔗",
-    "badgeClass": "bg-blue",
-    "badgeText": "Tool"
-  },
-  {
-    "title": "OCRテキスト抽出",
-    "url": "https://neverendingdaily.github.io/portal/ocr-tool/",
-    "desc": "画像やPDFから文字情報を素早くテキストデータとして抽出します。",
-    "icon": "📄",
-    "badgeClass": "bg-blue",
-    "badgeText": "Tool"
-  },
-  {
-    "title": "dマガジン 直リンクポータル",
-    "url": "https://neverendingdaily.github.io/portal/dmagazine/",
-    "desc": "dマガジンの各種ページへ直接アクセスできるポータルサイトです。",
-    "icon": "📚",
-    "badgeClass": "bg-gray",
-    "badgeText": "Portal"
-  }
+  { "title": "Gem Hub", "url": "https://neverendingdaily.github.io/portal/home/", "icon": "💎", "badgeText": "Core AI", "badgeClass": "bg-purple", "desc": "180のAIエージェント・SOP群。全ての作業の司令塔。" },
+  { "title": "Gem Hub コンシェルジュ", "url": "https://neverendingdaily.github.io/portal/aiconcierge/", "desc": "達成したい目的を入力すると、最適な使用順序とワークフローをAIが提案します。", "icon": "💁", "badgeClass": "bg-purple", "badgeText": "Assistant" },
+  { "title": "X高度な検索アプリ", "url": "https://neverendingdaily.github.io/portal/x/", "icon": "🔍", "badgeText": "Research", "badgeClass": "bg-blue", "desc": "X Advanced Search" },
+  { "title": "Search Hub", "url": "https://neverendingdaily.github.io/portal/searchhub/", "desc": "Google/X/Bluesky/Reddit横断のリサーチツール。", "icon": "🔍", "badgeClass": "bg-gray", "badgeText": "Research" },
+  { "title": "Trend Seed Finder", "url": "https://neverendingdaily.github.io/portal/trend-seed-finder/", "desc": "最新トレンドの種を発見し、バズるコンテンツの切り口を見つけるツール。", "icon": "📈", "badgeClass": "bg-gray", "badgeText": "Research" },
+  { "title": "Persona Analyzer", "url": "https://neverendingdaily.github.io/portal/persona-analyzer/", "desc": "ターゲット層のペルソナを深掘りし、解像度を極限まで上げる分析ツール。", "icon": "🕵️", "badgeClass": "bg-red", "badgeText": "Analysis" },
+  { "title": "トンマナ深層アナリスト", "url": "https://neverendingdaily.github.io/portal/tonmana-tool/", "desc": "文章のトーン＆マナーを分析し、ブランドに合った声質を解析します。", "icon": "⚖️", "badgeClass": "bg-red", "badgeText": "Analysis" },
+  { "title": "総合アナライザー", "url": "https://neverendingdaily.github.io/portal/analyze/", "desc": "コンテンツやテキストデータの多角的な分析・スコアリングツール。", "icon": "📊", "badgeClass": "bg-red", "badgeText": "Analysis" },
+  { "title": "ことだね（Kotodane）", "url": "https://neverendingdaily.github.io/portal/kotodane/", "desc": "思考の種やキーワードから、連想的にコンテンツアイデアを生成・拡張。", "icon": "🌱", "badgeClass": "bg-yellow", "badgeText": "Ideation" },
+  { "title": "Gem Hub アイデア錬成", "url": "https://neverendingdaily.github.io/portal/aiconcierge-idea/", "desc": "キーワードからGem Hubの機能を想定したワークフロー案を一気に30個リストアップ。", "icon": "💡", "badgeClass": "bg-yellow", "badgeText": "Ideation" },
+  { "title": "SNS 看板プランナー", "url": "https://neverendingdaily.github.io/portal/sns-profile-planner/", "desc": "全媒体のプロフィール・固定ポスト・導線の一括設計。", "icon": "📢", "badgeClass": "bg-blue", "badgeText": "Setup" },
+  { "title": "SNS Content Studio", "url": "https://neverendingdaily.github.io/portal/sns-content-studio/", "desc": "【統合版】SNS投稿の全体計画、カレンダー管理、コンテンツ制作を一元管理。", "icon": "📅", "badgeClass": "bg-green", "badgeText": "Planning" },
+  { "title": "X Schedule Generator", "url": "https://neverendingdaily.github.io/portal/x-schedule-generator/", "desc": "X（旧Twitter）のアルゴリズムに最適化された投稿スケジュールを自動生成。", "icon": "🐦", "badgeClass": "bg-green", "badgeText": "Planning" },
+  { "title": "Strategic Content Generator", "url": "https://neverendingdaily.github.io/portal/strategic-content-generator/", "desc": "戦略的意図に基づいた高品質なコンテンツ構成と原稿を自動生成。", "icon": "🎯", "badgeClass": "bg-orange", "badgeText": "Creative" },
+  { "title": "Product Review Creator", "url": "https://neverendingdaily.github.io/portal/product-review-creation/", "desc": "ユーザー心理に刺さる自然な商品レビュー・口コミ風コンテンツを生成。", "icon": "⭐", "badgeClass": "bg-orange", "badgeText": "Creative" },
+  { "title": "ペルソナ憑依スタジオ", "url": "https://neverendingdaily.github.io/portal/persona-possession-studio/", "desc": "クリエイターの思考・口調・哲学を完全憑依させた高度なゴーストライティングツール。", "icon": "🍻", "badgeClass": "bg-blue", "badgeText": "Studio" },
+  { "title": "メディア憑依スタジオ", "url": "https://neverendingdaily.github.io/portal/media-possession-studio/", "desc": "10軸トンマナ分析 × 完全憑依生成。メディアの「声」を完璧に再現。", "icon": "🎭", "badgeClass": "bg-blue", "badgeText": "Studio" },
+  { "title": "Canva SNS Auto-Chef", "url": "https://neverendingdaily.github.io/portal/canva/", "desc": "画像・動画構成とSOP・プロンプトをGeminiで全自動生成。", "icon": "🧑‍🍳", "badgeClass": "bg-orange", "badgeText": "Creative" },
+  { "title": "Filmora AI Workflow", "url": "https://neverendingdaily.github.io/portal/fimora-ai-workflow-studio/", "desc": "アイデア → 台本 → プロンプト → SOP を一気通貫生成。", "icon": "🎬", "badgeClass": "bg-orange", "badgeText": "Creative" },
+  { "title": "LP Wireframe Generator", "url": "https://neverendingdaily.github.io/portal/lp-wireframe-generater/", "desc": "コンバージョン率を最大化するランディングページのワイヤーフレームを自動設計。", "icon": "📐", "badgeClass": "bg-teal", "badgeText": "Design" },
+  { "title": "PostMesh Planner", "url": "https://neverendingdaily.github.io/portal/postmesh-planner/", "desc": "予約ツールへのデータストックと流し込み成形。", "icon": "⚙️", "badgeClass": "bg-blue", "badgeText": "Automation" },
+  { "title": "Data Merger", "url": "https://neverendingdaily.github.io/portal/merger/", "desc": "複数のテキストデータやプロンプト結果を整理・統合・結合するユーティリティ。", "icon": "🔗", "badgeClass": "bg-blue", "badgeText": "Tool" },
+  { "title": "OCRテキスト抽出", "url": "https://neverendingdaily.github.io/portal/ocr-tool/", "desc": "画像やPDFから文字情報を素早くテキストデータとして抽出します。", "icon": "📄", "badgeClass": "bg-blue", "badgeText": "Tool" },
+  { "title": "dマガジン 直リンクポータル", "url": "https://neverendingdaily.github.io/portal/dmagazine/", "desc": "dマガジンの各種ページへ直接アクセスできるポータルサイトです。", "icon": "📚", "badgeClass": "bg-gray", "badgeText": "Portal" }
 ]
 </script>
 
-<script>
-// JSONブロックから初期データを読み込み、ローカルストレージがあれば上書きする
-const dataScript = document.getElementById('site-data');
-let originalData = JSON.parse(dataScript.textContent);
-let L = JSON.parse(localStorage.getItem('my_portal_data')) || originalData;
-
-let isEditMode = false;
-
-// 描画関数
-function renderCards() {
-    const g = document.getElementById('g');
-    g.innerHTML = '';
-    
-    L.forEach((l, index) => {
-        // 編集モード時はリンクを無効化するためにdivを使う
-        const wrapper = document.createElement(isEditMode ? 'div' : 'a');
-        if(!isEditMode) {
-            wrapper.href = l.url;
-            wrapper.target = '_blank';
-        }
-        wrapper.className = 'card' + (isEditMode ? ' edit-mode' : '');
-        
-        const hasEmoji = l.icon && l.icon.trim() !== '';
-        const fav = (u) => { try{ return 'https://www.google.com/s2/favicons?sz=64&domain=' + encodeURIComponent(new URL(u).hostname); }catch(e){ return ''; } }
-        
-        const ico = hasEmoji
-            ? `<div class="icon-wrap">${l.icon}</div>`
-            : `<div class="icon-wrap"><img class="favicon-img" src="${fav(l.url)}" alt="" onerror="this.style.display='none'"></div>`;
-            
-        let inner = `<span class="badge ${l.badgeClass}">${l.badgeText}</span>${ico}<div class="title">${l.title}</div><div class="desc">${l.desc}</div>`;
-        
-        // 編集モード用オーバーレイ
-        if(isEditMode) {
-            inner += `
-            <div class="card-edit-overlay">
-                <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
-                    <button class="action-btn" onclick="moveUp(${index}, event)">◀ 前へ</button>
-                    <button class="action-btn" onclick="moveDown(${index}, event)">次へ ▶</button>
-                </div>
-                <button class="action-btn delete-btn" onclick="deleteSite(${index}, event)">🗑️ 削除</button>
-            </div>`;
-        }
-        
-        wrapper.innerHTML = inner;
-        g.appendChild(wrapper);
-    });
-}
-
-// 編集モード切替
-function toggleEditMode() {
-    isEditMode = !isEditMode;
-    const btn = document.getElementById('toggle-edit');
-    const form = document.getElementById('add-form');
-    
-    if(isEditMode) {
-        btn.textContent = "編集モード OFF";
-        btn.classList.add('active');
-        form.classList.add('active');
-    } else {
-        btn.textContent = "編集モード ON";
-        btn.classList.remove('active');
-        form.classList.remove('active');
-    }
-    renderCards();
-}
-
-// データの操作
-function saveData() {
-    localStorage.setItem('my_portal_data', JSON.stringify(L));
-    renderCards();
-}
-
-function moveUp(index, event) {
-    event.stopPropagation();
-    if(index > 0) {
-        [L[index - 1], L[index]] = [L[index], L[index - 1]];
-        saveData();
-    }
-}
-
-function moveDown(index, event) {
-    event.stopPropagation();
-    if(index < L.length - 1) {
-        [L[index + 1], L[index]] = [L[index], L[index + 1]];
-        saveData();
-    }
-}
-
-function deleteSite(index, event) {
-    event.stopPropagation();
-    if(confirm("このサイトをリストから削除しますか？")) {
-        L.splice(index, 1);
-        saveData();
-    }
-}
-
-function addSite() {
-    const title = document.getElementById('f-title').value;
-    const url = document.getElementById('f-url').value;
-    if(!title || !url) return alert("タイトルとURLは必須です");
-    
-    const newSite = {
-        title: title,
-        url: url,
-        icon: document.getElementById('f-icon').value,
-        badgeText: document.getElementById('f-badge-text').value || "New",
-        badgeClass: document.getElementById('f-badge-class').value,
-        desc: document.getElementById('f-desc').value
-    };
-    
-    L.push(newSite);
-    saveData();
-    
-    // 入力リセット
-    document.getElementById('f-title').value = '';
-    document.getElementById('f-url').value = '';
-    document.getElementById('f-desc').value = '';
-    alert("追加しました！一番下に追加されています。");
-}
-
-// HTMLエクスポート
-function exportHTML() {
-    // 現在のデータをJSONスクリプトブロックに書き戻す
-    dataScript.textContent = "\n" + JSON.stringify(L, null, 2) + "\n";
-    
-    // 編集モードを一時的に解除（出力ファイルに編集状態を含めないため）
-    const wasEditMode = isEditMode;
-    if(wasEditMode) toggleEditMode();
-    
-    // 描画エリアを一回空にする（重複描画を防ぐため）
-    document.getElementById('g').innerHTML = '';
-    
-    // 現在のHTML全体を取得
-    const htmlContent = "<!DOCTYPE html>\n<html lang=\"ja\">\n" + document.documentElement.innerHTML + "\n</html>";
-    
-    // ダウンロード用リンクを作成してクリック
-    const blob = new Blob([htmlContent], { type: "text/html" });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = "sns-portal-updated.html";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    
-    // 画面を元の状態に戻す
-    renderCards();
-    if(wasEditMode) toggleEditMode();
-    
-    alert("「sns-portal-updated.html」という名前でダウンロードしました！\n次回からはこの新しいファイルを使うか、GitHub等にアップロードしてください。");
-}
-
-// 初期描画
-renderCards();
-</script>
-
 <script type="module">
+    // ① Firebaseのシステムを読み込む
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+    // 🌟 今回追加：Firestore（クラウドデータベース）の機能を読み込む
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
+    // ② あなたの鍵
     const firebaseConfig = {
       apiKey: "AIzaSyCJwQooL2MHQq2fg8aeXWGDD2s8VfzKZ04",
       authDomain: "portal-app-25359.firebaseapp.com",
@@ -599,26 +238,57 @@ renderCards();
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
+    const db = getFirestore(app); // データベースの起動
 
+    // ③ 画面パーツとデータの準備
     const loginSection = document.getElementById('login-section');
     const mainContent = document.getElementById('main-content');
     const userNameSpan = document.getElementById('user-name');
+    
+    const dataScript = document.getElementById('site-data');
+    const originalData = JSON.parse(dataScript.textContent);
+    
+    let L = []; // ツールのリスト（後でクラウドから読み込みます）
+    let isEditMode = false;
+    let currentUser = null; // ログインしているユーザーの情報を保存
 
-    // ログイン状態の監視
-    onAuthStateChanged(auth, (user) => {
+    // ④ ログイン状態の監視とクラウドデータの取得
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // ログインしている時
+        // ログイン成功！
+        currentUser = user;
         loginSection.classList.add('hidden');
         mainContent.classList.remove('hidden');
         userNameSpan.textContent = user.displayName + " さん";
+
+        // 🌟 クラウドから「あなた専用のツール一覧」を取得する処理
+        try {
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (userDoc.exists()) {
+                // すでにクラウドに保存されている場合
+                L = userDoc.data().tools;
+            } else {
+                // 初めてのログインの場合（初期データをクラウドに書き込む）
+                L = JSON.parse(localStorage.getItem('my_portal_data')) || originalData;
+                await setDoc(doc(db, "users", user.uid), { tools: L });
+            }
+            renderCards(); // データを取得してから画面にカードを描画
+        } catch (error) {
+            console.error("クラウドからのデータ取得に失敗しました:", error);
+            // 失敗時はローカルデータで代用
+            L = JSON.parse(localStorage.getItem('my_portal_data')) || originalData;
+            renderCards();
+        }
+
       } else {
-        // ログインしていない時
+        // 未ログイン時
+        currentUser = null;
         loginSection.classList.remove('hidden');
         mainContent.classList.add('hidden');
       }
     });
 
-    // ログイン処理
+    // ⑤ ログイン・ログアウトボタンの動作
     document.getElementById('login-btn').addEventListener('click', () => {
       signInWithPopup(auth, provider).catch((error) => {
         console.error("ログインエラー:", error);
@@ -626,11 +296,161 @@ renderCards();
       });
     });
 
-    // ログアウト処理
     document.getElementById('logout-btn').addEventListener('click', () => {
       signOut(auth).catch((error) => console.error("ログアウトエラー:", error));
     });
-</script>
 
+
+    // ==========================================
+    // 以降はポータルサイトの便利機能（描画、編集、並び替え）
+    // ==========================================
+
+    function renderCards() {
+        const g = document.getElementById('g');
+        g.innerHTML = '';
+        
+        L.forEach((l, index) => {
+            const wrapper = document.createElement(isEditMode ? 'div' : 'a');
+            if(!isEditMode) {
+                wrapper.href = l.url;
+                wrapper.target = '_blank';
+            }
+            wrapper.className = 'card' + (isEditMode ? ' edit-mode' : '');
+            
+            const hasEmoji = l.icon && l.icon.trim() !== '';
+            const fav = (u) => { try{ return 'https://www.google.com/s2/favicons?sz=64&domain=' + encodeURIComponent(new URL(u).hostname); }catch(e){ return ''; } }
+            
+            const ico = hasEmoji
+                ? `<div class="icon-wrap">${l.icon}</div>`
+                : `<div class="icon-wrap"><img class="favicon-img" src="${fav(l.url)}" alt="" onerror="this.style.display='none'"></div>`;
+                
+            let inner = `<span class="badge ${l.badgeClass}">${l.badgeText}</span>${ico}<div class="title">${l.title}</div><div class="desc">${l.desc}</div>`;
+            
+            if(isEditMode) {
+                inner += `
+                <div class="card-edit-overlay">
+                    <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
+                        <button class="action-btn" onclick="moveUp(${index}, event)">◀ 前へ</button>
+                        <button class="action-btn" onclick="moveDown(${index}, event)">次へ ▶</button>
+                    </div>
+                    <button class="action-btn delete-btn" onclick="deleteSite(${index}, event)">🗑️ 削除</button>
+                </div>`;
+            }
+            
+            wrapper.innerHTML = inner;
+            g.appendChild(wrapper);
+        });
+    }
+
+    // 🌟 変更や追加があったときに、クラウドに同期する関数
+    async function saveData() {
+        // オフラインの時のためにローカルにも一応保存
+        localStorage.setItem('my_portal_data', JSON.stringify(L));
+        renderCards();
+
+        // ログイン中なら、変更をクラウド（Firestore）に送信！
+        if (currentUser) {
+            try {
+                await setDoc(doc(db, "users", currentUser.uid), { tools: L });
+                console.log("クラウドに同期しました");
+            } catch (error) {
+                console.error("クラウドへの同期に失敗しました:", error);
+            }
+        }
+    }
+
+    function toggleEditMode() {
+        isEditMode = !isEditMode;
+        const btn = document.getElementById('toggle-edit');
+        const form = document.getElementById('add-form');
+        
+        if(isEditMode) {
+            btn.textContent = "編集モード OFF";
+            btn.classList.add('active');
+            form.classList.add('active');
+        } else {
+            btn.textContent = "編集モード ON";
+            btn.classList.remove('active');
+            form.classList.remove('active');
+        }
+        renderCards();
+    }
+
+    function moveUp(index, event) {
+        event.stopPropagation();
+        if(index > 0) {
+            [L[index - 1], L[index]] = [L[index], L[index - 1]];
+            saveData(); // ここでクラウドへ同期！
+        }
+    }
+
+    function moveDown(index, event) {
+        event.stopPropagation();
+        if(index < L.length - 1) {
+            [L[index + 1], L[index]] = [L[index], L[index + 1]];
+            saveData(); // ここでクラウドへ同期！
+        }
+    }
+
+    function deleteSite(index, event) {
+        event.stopPropagation();
+        if(confirm("このサイトをリストから削除しますか？")) {
+            L.splice(index, 1);
+            saveData(); // ここでクラウドへ同期！
+        }
+    }
+
+    function addSite() {
+        const title = document.getElementById('f-title').value;
+        const url = document.getElementById('f-url').value;
+        if(!title || !url) return alert("タイトルとURLは必須です");
+        
+        const newSite = {
+            title: title,
+            url: url,
+            icon: document.getElementById('f-icon').value,
+            badgeText: document.getElementById('f-badge-text').value || "New",
+            badgeClass: document.getElementById('f-badge-class').value,
+            desc: document.getElementById('f-desc').value
+        };
+        
+        L.push(newSite);
+        saveData(); // ここでクラウドへ同期！
+        
+        document.getElementById('f-title').value = '';
+        document.getElementById('f-url').value = '';
+        document.getElementById('f-desc').value = '';
+        alert("追加・同期しました！");
+    }
+
+    function exportHTML() {
+        dataScript.textContent = "\n" + JSON.stringify(L, null, 2) + "\n";
+        const wasEditMode = isEditMode;
+        if(wasEditMode) toggleEditMode();
+        document.getElementById('g').innerHTML = '';
+        
+        const htmlContent = "<!DOCTYPE html>\n<html lang=\"ja\">\n" + document.documentElement.innerHTML + "\n</html>";
+        const blob = new Blob([htmlContent], { type: "text/html" });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = "sns-portal-updated.html";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        
+        renderCards();
+        if(wasEditMode) toggleEditMode();
+        alert("バックアップ用HTMLをダウンロードしました。");
+    }
+
+    // ★ HTMLのボタンから呼び出せるように、関数を全体(window)に登録
+    window.toggleEditMode = toggleEditMode;
+    window.moveUp = moveUp;
+    window.moveDown = moveDown;
+    window.deleteSite = deleteSite;
+    window.addSite = addSite;
+    window.exportHTML = exportHTML;
+
+</script>
 </body>
 </html>
