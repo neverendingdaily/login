@@ -52,50 +52,110 @@
         
         .bg-blue{background:#e0f2fe;color:#0369a1}.bg-green{background:#dcfce7;color:#15803d}.bg-purple{background:#f3e8ff;color:#7e22ce}.bg-orange{background:#ffedd5;color:#c2410c}.bg-gray{background:#f3f4f6;color:#4b5563}.bg-red{background:#fee2e2;color:#b91c1c}.bg-yellow{background:#fef9c3;color:#854d0e}.bg-teal{background:#ccfbf1;color:#0f766e}
         
-        /* ▼▼▼ Firebaseログイン画面用CSS ▼▼▼ */
+        /* ▼▼▼ プレミアムログイン画面用CSS ▼▼▼ */
         .hidden { display: none !important; }
+        
         #login-section {
-            background: #fff;
-            padding: 3rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* 高級感のある背景グラデーション */
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            /* すりガラス風のエフェクト */
+            backdrop-filter: blur(10px);
+            padding: 3.5rem 3rem;
+            border-radius: 24px;
             text-align: center;
-            max-width: 400px;
-            margin: 100px auto;
-            box-shadow: 0 10px 20px rgba(0,0,0,.06);
-            /* 中央に配置するための調整 */
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            max-width: 420px;
             width: 90%;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            /* ふんわり現れるアニメーション */
+            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        #login-section h2 { margin-top: 0; color: var(--primary); }
-        .btn-login {
-            background: #4285F4;
-            color: white;
-            padding: 10px 20px;
-            font-size: 1.1rem;
-            border-radius: 6px;
-            margin-top: 20px;
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-logo {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1;
+            /* ロケットがフワフワ浮くアニメーション */
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .login-card h2 {
+            margin: 0 0 0.5rem 0;
+            color: #1e293b;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+
+        .login-desc {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .btn-login-modern {
+            background: #ffffff;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+            padding: 14px 24px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 12px;
             width: 100%;
-        }
-        .btn-login:hover { background: #3367D6; }
-        .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            font-weight: bold;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
         }
-        .btn-logout {
-            background: #f1f5f9;
-            color: #334155;
-            padding: 5px 10px;
+
+        .btn-login-modern:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-login-modern:active {
+            transform: translateY(0);
+        }
+
+        .google-icon { width: 24px; height: 24px; }
+
+        .login-footer {
+            margin-top: 2rem;
             font-size: 0.8rem;
+            color: #94a3b8;
         }
+
+        /* 既存のユーザー情報表示エリア用 */
+        .user-info { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: bold; }
+        .btn-logout { background: #f1f5f9; color: #334155; padding: 5px 10px; font-size: 0.8rem; }
         .btn-logout:hover { background: #e2e8f0; }
-        /* ▲▲▲ Firebaseログイン画面用CSS ▲▲▲ */
+        /* ▲▲▲ プレミアムログイン画面用CSS ▲▲▲ */
 
         @media (max-width: 600px) {
             .header { flex-direction: column; text-align: center; }
@@ -105,9 +165,16 @@
 <body>
 
 <div id="login-section">
-    <h2>SNS Marketing Portal</h2>
-    <p>ツールを利用するには<br>Googleアカウントでログインしてください</p>
-    <button id="login-btn" class="btn-login">Googleでログイン</button>
+    <div class="login-card">
+        <div class="login-logo">🚀</div>
+        <h2>SNS Marketing Portal</h2>
+        <p class="login-desc">統合マーケティングシステムへようこそ。<br>続行するにはログインしてください。</p>
+        <button id="login-btn" class="btn-login-modern">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="google-icon">
+            Google アカウントでログイン
+        </button>
+        <p class="login-footer">※許可されたクリエイターのみアクセス可能です</p>
+    </div>
 </div>
 <div class="container hidden" id="main-content">
     <div class="header">
@@ -480,7 +547,7 @@ function addSite() {
     alert("追加しました！一番下に追加されています。");
 }
 
-// HTMLエクスポート（このマジックでサーバー不要になります！）
+// HTMLエクスポート
 function exportHTML() {
     // 現在のデータをJSONスクリプトブロックに書き戻す
     dataScript.textContent = "\n" + JSON.stringify(L, null, 2) + "\n";
